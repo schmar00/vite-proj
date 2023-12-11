@@ -1,5 +1,6 @@
 <script>
-	import * as Pancake from '@sveltejs/pancake';
+	// @ts-ignore
+	import * as Pancake from '@sveltejs/pancake'; //only for SSR ?
 	import * as d3 from 'd3-hierarchy';
 	import { tweened } from 'svelte/motion';
 	import * as eases from 'svelte/easing';
@@ -62,13 +63,14 @@
 	{breadcrumbs(selected)}
 </button>
 
-<div class="chart">
+<div class="chart p-24">
 	<Pancake.Chart x1={$extents.x1} x2={$extents.x2} y1={$extents.y1} y2={$extents.y2}>
 		<Treemap {root} let:node>
 			{#if is_visible(node, selected)}
 				<div transition:fade={{duration:400}}
-					class="node"
+					class="node text-white bg-emerald-700 hover:bg-emerald-800 focus:ring-4 focus:outline-none focus:ring-emerald-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-emerald-600 dark:hover:bg-emerald-700 dark:focus:ring-blue-800bg-white-500 border-white-800 border-2"
 					class:leaf={!node.children}
+					role="presentation"
 					on:click="{() => select(node)}">
 					<div class="contents">
 						<strong>{node.data.name}</strong>
@@ -102,7 +104,7 @@
 	.chart {
 		width: calc(100% + 2px);
 		height: 400px;
-		padding: 0;
+		padding: 2px;
 		margin: 0 -1px 36px -1px;
 		overflow: hidden;
 	}
@@ -111,7 +113,7 @@
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		background-color: white;
+		/* background-color: rgb(135, 90, 11); */
 		overflow: hidden;
 		pointer-events: all;
 	}
